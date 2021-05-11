@@ -163,30 +163,30 @@
 </ol>
 </blockquote>
 <h2 id="SRP"><a href="#SRP" class="headerlink" title="SRP"></a>SRP</h2><h3 id="What-is-SRP"><a href="#What-is-SRP" class="headerlink" title="What is SRP"></a>What is SRP</h3><p>SRP says “code” should have only responsibile for one “actor” (actor here referring to a user or a group of users), which means you as an software engineer should and only should modify one code usually a file when there is an requirement from “the” code which responsibile for them.</p>
-<h3 id="Example-of-volation"><a href="#Example-of-volation" class="headerlink" title="Example of volation"></a>Example of volation</h3><p>Say we have a report generating tool to maintain and current design is we have a header generation code which been used by Finance and Human Resouces department.<br>One day, we got a new requirement from Finance team want to add addition information on report header, if we update the header generator then <strong>Both</strong> Finance team and HR team’s reports get updated, that is not what we want.</p>
+<h3 id="Example-of-violation"><a href="#Example-of-violation" class="headerlink" title="Example of violation"></a>Example of violation</h3><p>Say we have a report generating tool to maintain and current design is we have a header generation code which been used by Finance and Human Resouces department.<br>One day, we got a new requirement from Finance team want to add addition information on report header, if we update the header generator then <strong>Both</strong> Finance team and HR team’s reports get updated, that is not what we want.</p>
 <h2 id="OCP"><a href="#OCP" class="headerlink" title="OCP"></a>OCP</h2><h3 id="What-is-OCP"><a href="#What-is-OCP" class="headerlink" title="What is OCP"></a>What is OCP</h3><p>OCP says softwares should open for extension but close for modification.</p>
-<h3 id="Example-of-volation-1"><a href="#Example-of-volation-1" class="headerlink" title="Example of volation"></a>Example of volation</h3><p>If we have a Controller invoke a Interactor like print square, when we have a new requirement to print circle, then it would be volating OCP if we start modify the Interactor by adding if statement.</p>
+<h3 id="Example-of-violation-1"><a href="#Example-of-violation-1" class="headerlink" title="Example of violation"></a>Example of violation</h3><p>If we have a Controller invoke a Interactor like print square, when we have a new requirement to print circle, then it would be violating OCP if we start modify the Interactor by adding if statement.</p>
 <p>Better solution would be having an interface of print method then having 2 implementation that.</p>
-<h2 id="LSP"><a href="#LSP" class="headerlink" title="LSP"></a>LSP</h2><h3 id="What-is-LSP"><a href="#What-is-LSP" class="headerlink" title="What is LSP"></a>What is LSP</h3><p>The Liskov Substitution Principle is trying to use a mathmatical formula to express what does “Substitution” means, but essentailly what it says is just the sub class/type <strong>MUST NOT</strong> change the expectation of parent class/type.</p>
-<p>The problem LSP is trying to solve is to prevent the misuse of <strong>Inhertance</strong>.</p>
-<h3 id="Example-of-volation-2"><a href="#Example-of-volation-2" class="headerlink" title="Example of volation"></a>Example of volation</h3><p>Say we have a abstract class of “A” and class A have 2 method m1 and m2, which m1 need to be called before m2.</p>
+<h2 id="LSP"><a href="#LSP" class="headerlink" title="LSP"></a>LSP</h2><h3 id="What-is-LSP"><a href="#What-is-LSP" class="headerlink" title="What is LSP"></a>What is LSP</h3><p>The Liskov Substitution Principle is trying to use a mathematical formula to express what does “Substitution” means, but essentially what it says is just the sub class/type <strong>MUST NOT</strong> change the expectation of parent class/type.</p>
+<p>The problem LSP is trying to solve is to prevent the misuse of <strong>Inheritance</strong>.</p>
+<h3 id="Example-of-violation-2"><a href="#Example-of-violation-2" class="headerlink" title="Example of violation"></a>Example of violation</h3><p>Say we have an abstract class of “A” and class A have 2 method m1 and m2, which m1 need to be called before m2.</p>
 <p>Now we have a new requirement of extending class “A” for class “B” which class B only have m2 but not m1.</p>
-<p>One simple solution for that is to extend A and fake m1 as somehting like</p>
+<p>One simple solution for that is to extend A and fake m1 as something like</p>
 <blockquote>
 <p>function m1() {};</p>
 </blockquote>
 <p>This simple solution might just works for 99% of time but sooner or latter people will facing some kind of racing condition.</p>
 <h2 id="ISP"><a href="#ISP" class="headerlink" title="ISP"></a>ISP</h2><h3 id="What-is-ISP"><a href="#What-is-ISP" class="headerlink" title="What is ISP"></a>What is ISP</h3><p>The key for this principle says: don’t depend on things you don’t need to.</p>
-<h3 id="Example-of-volation-3"><a href="#Example-of-volation-3" class="headerlink" title="Example of volation"></a>Example of volation</h3><p>An example will be if we have a “Switch” class which have 2 state of “On” and “Off”, then we have a class “Light” using swith to control its’ lighting state.</p>
-<p>one solution is to ask Switch to change the state for Light object, but this is volating ISP since the “Switch” class does not need to know how light class are implemented. This volation will create massive unessasary dependencies which will eventually creates “Fat Class” that is</p>
+<h3 id="Example-of-violation-3"><a href="#Example-of-violation-3" class="headerlink" title="Example of violation"></a>Example of violation</h3><p>An example will be if we have a “Switch” class which have 2 state of “On” and “Off”, then we have a class “Light” using switch to control its’ lighting state.</p>
+<p>one solution is to ask Switch to change the state for Light object, but this is violation ISP since the “Switch” class does not need to know how light class are implemented. This violation will create massive unnecessary dependencies which will eventually creates “Fat Class” that is</p>
 <ol>
-<li>incresed in complie time.</li>
-<li>havery coupling system.</li>
-<li>breaks independent deployblity.</li>
+<li>increased in compile time.</li>
+<li>heavily coupling system.</li>
+<li>breaks independent deployability.</li>
 </ol>
-<p>Better design will be having an interface called “Switchable” that only provide 2 state “On” and “Off”, then not only light can use it but also other class which want to have “On” and “Off” state can use it. Essentailly “Switch” don’t need to know it’s <strong>Customer Application</strong> and <strong>Customer Application</strong> don’t need to know switch.</p>
-<h2 id="DIP"><a href="#DIP" class="headerlink" title="DIP"></a>DIP</h2><h3 id="What-is-DIP"><a href="#What-is-DIP" class="headerlink" title="What is DIP"></a>What is DIP</h3><p>The problem DIP try to improves is code reuseablity.<br>Dependency Inversion means dependency direction is the reversed order of control.</p>
-<p>e.g. say UI may have a header and footer component, then flow of control will be UI -&gt; header. However if we have a interface in between we will have UI -&gt; headerInterface &lt;- header, the header class becomes a plugin to UI instead of a dependent. Whenever there is a change in header you don’t need to recomplie other UI component.</p>
+<p>Better design will be having an interface called “Switchable” that only provide 2 state “On” and “Off”, then not only light can use it but also other class which want to have “On” and “Off” state can use it. Essentially “Switch” don’t need to know it’s <strong>Customer Application</strong> and <strong>Customer Application</strong> don’t need to know switch.</p>
+<h2 id="DIP"><a href="#DIP" class="headerlink" title="DIP"></a>DIP</h2><h3 id="What-is-DIP"><a href="#What-is-DIP" class="headerlink" title="What is DIP"></a>What is DIP</h3><p>The problem DIP try to improves is code reusability.<br>Dependency Inversion means dependency direction is the reversed order of control.</p>
+<p>e.g. say UI may have a header and footer component, then flow of control will be UI -&gt; header. However if we have an interface in between we will have UI -&gt; headerInterface &lt;- header, the header class becomes a plugin to UI instead of a dependent. Whenever there is a change in header you don’t need to recompile other UI component.</p>
 <p>For source code dependency of previous example, “header” class need to know the requirement of consumer class “UI”, but UI does not require to know header’s implementation, so header is depend on UI, therefore <strong>the dependency get inverted!</strong></p>
 
       
